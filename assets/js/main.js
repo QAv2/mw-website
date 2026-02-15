@@ -65,8 +65,3 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// ─── Form handler (placeholder) ───
-function handleSubmit(e) {
-    e.preventDefault();
-    alert('Thank you for your message! This form will be connected to an email service once the site is launched.');
-}

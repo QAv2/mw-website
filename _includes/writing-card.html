@@ -1,0 +1,12 @@
+<div class="writing-card reveal">
+    <span class="card-category">{{ post.category }}</span>
+    <h3 class="card-title">{{ post.title }}</h3>
+    <p class="card-excerpt">{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
+    <div class="card-meta">
+        <span>{{ post.date | date: "%B %Y" }}</span>
+        <a href="{{ post.url | relative_url }}" class="read-more">
+            Read More
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+    </div>
+</div>

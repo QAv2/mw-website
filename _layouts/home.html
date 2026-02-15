@@ -1,0 +1,162 @@
+---
+layout: default
+---
+
+{% include hero.html %}
+
+<!-- FEATURED WRITING -->
+<section id="writing">
+    <div class="section-header reveal">
+        <span class="section-label">Selected Work</span>
+        <h2 class="section-title">Featured Writing</h2>
+        <div class="section-rule"></div>
+    </div>
+
+    <div class="writing-grid">
+        {% for post in site.posts limit:6 %}
+            {% include writing-card.html post=post %}
+        {% endfor %}
+    </div>
+</section>
+
+<!-- FEATURED READING SECTION -->
+<div class="featured-piece" id="featured">
+    <div class="section-header reveal">
+        <span class="section-label">Featured Excerpt</span>
+        <h2 class="section-title">{{ site.data.homepage.featured_title }}</h2>
+        <div class="section-rule"></div>
+    </div>
+    <div class="featured-text reveal">
+        {{ site.data.homepage.featured_excerpt | markdownify }}
+    </div>
+</div>
+
+<!-- CATEGORIES -->
+<section id="categories">
+    <div class="section-header reveal">
+        <span class="section-label">Browse by</span>
+        <h2 class="section-title">Categories</h2>
+        <div class="section-rule"></div>
+    </div>
+
+    <div class="categories-grid">
+        {% assign category_list = "Story,Reflection,Article,Tribute,Personal Story" | split: "," %}
+        {% assign category_names = "Stories,Reflections,Articles,Tributes,Personal Stories" | split: "," %}
+        {% for cat in category_list %}
+            {% assign cat_count = site.posts | where: "category", cat | size %}
+            <div class="category-card reveal">
+                <span class="category-icon">{{ cat | slice: 0 }}</span>
+                <h3 class="category-name">{{ category_names[forloop.index0] }}</h3>
+                <span class="category-count">{{ cat_count }} piece{% if cat_count != 1 %}s{% endif %}</span>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- PHOTOS -->
+<section id="photos">
+    <div class="section-header reveal">
+        <span class="section-label">Visual</span>
+        <h2 class="section-title">Photo Gallery</h2>
+        <div class="section-rule"></div>
+    </div>
+
+    <div class="photo-grid reveal">
+        {% assign sorted_photos = site.photos | sort: "order" %}
+        {% for photo in sorted_photos %}
+        <div class="photo-item">
+            {% if photo.image %}
+            <img src="{{ photo.image | relative_url }}" alt="{{ photo.title }}" style="width:100%;height:100%;object-fit:cover;">
+            {% else %}
+            <div class="photo-placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+                <span>{{ photo.title }}</span>
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+    <div class="section-header reveal">
+        <span class="section-label">The Author</span>
+        <h2 class="section-title">About {{ site.data.about.name }}</h2>
+        <div class="section-rule"></div>
+    </div>
+
+    <div class="about-layout">
+        <div class="about-portrait reveal">
+            {% if site.data.about.portrait %}
+            <img src="{{ site.data.about.portrait | relative_url }}" alt="{{ site.data.about.name }}" style="width:100%;height:100%;object-fit:cover;">
+            {% else %}
+            <div class="photo-placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+                <span>Author Photo</span>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="about-text reveal">
+            <h3>{{ site.data.about.name }}</h3>
+            <p class="about-tagline">{{ site.data.about.tagline }}</p>
+
+            {{ site.data.about.bio | markdownify }}
+
+            {% if site.data.about.quote %}
+            <blockquote>
+                "{{ site.data.about.quote }}"
+            </blockquote>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+    <div class="section-header reveal">
+        <span class="section-label">Get in Touch</span>
+        <h2 class="section-title">Say Hello</h2>
+        <div class="section-rule"></div>
+    </div>
+
+    <div class="contact-layout">
+        <p class="contact-intro reveal">
+            {{ site.data.homepage.contact_intro }}
+        </p>
+
+        <form class="contact-form reveal" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+            <input type="hidden" name="form-name" value="contact">
+            <p class="hidden" style="display:none;">
+                <label>Don't fill this out: <input name="bot-field"></label>
+            </p>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group full">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group full">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+            </div>
+            <button type="submit" class="submit-btn">
+                Send Message
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+        </form>
+    </div>
+</section>

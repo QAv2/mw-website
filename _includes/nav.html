@@ -1,0 +1,17 @@
+<nav id="navbar">
+    <div class="nav-inner">
+        <a href="{{ '/' | relative_url }}" class="nav-brand">Madison Wood</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="{% if page.layout == 'home' %}#writing{% else %}{{ '/' | relative_url }}#writing{% endif %}">Writing</a></li>
+            <li><a href="{% if page.layout == 'home' %}#categories{% else %}{{ '/' | relative_url }}#categories{% endif %}">Categories</a></li>
+            <li><a href="{% if page.layout == 'home' %}#photos{% else %}{{ '/' | relative_url }}#photos{% endif %}">Photos</a></li>
+            <li><a href="{% if page.layout == 'home' %}#about{% else %}{{ '/' | relative_url }}#about{% endif %}">About</a></li>
+            <li><a href="{% if page.layout == 'home' %}#contact{% else %}{{ '/' | relative_url }}#contact{% endif %}">Contact</a></li>
+        </ul>
+    </div>
+</nav>

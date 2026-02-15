@@ -1,0 +1,62 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "assets/images/uploads"
+public_folder: "/assets/images/uploads"
+
+collections:
+  - name: "posts"
+    label: "Writing"
+    folder: "_posts"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false }
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options:
+          - "Story"
+          - "Reflection"
+          - "Tribute"
+          - "Article"
+          - "Personal Story"
+      - { label: "Featured", name: "featured", widget: "boolean", default: false }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "photos"
+    label: "Photos"
+    folder: "_photos"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Image", name: "image", widget: "image", required: false }
+      - { label: "Caption", name: "caption", widget: "string", required: false }
+      - { label: "Order", name: "order", widget: "number", value_type: "int", min: 1 }
+
+  - name: "pages"
+    label: "Pages"
+    files:
+      - label: "About"
+        name: "about"
+        file: "_data/about.yml"
+        fields:
+          - { label: "Name", name: "name", widget: "string" }
+          - { label: "Tagline", name: "tagline", widget: "string" }
+          - { label: "Bio", name: "bio", widget: "markdown" }
+          - { label: "Quote", name: "quote", widget: "string", required: false }
+          - { label: "Portrait", name: "portrait", widget: "image", required: false }
+
+      - label: "Homepage"
+        name: "homepage"
+        file: "_data/homepage.yml"
+        fields:
+          - { label: "Hero Eyebrow", name: "hero_eyebrow", widget: "string" }
+          - { label: "Hero Title", name: "hero_title", widget: "string" }
+          - { label: "Hero Subtitle", name: "hero_subtitle", widget: "text" }
+          - { label: "Featured Excerpt Title", name: "featured_title", widget: "string" }
+          - { label: "Featured Excerpt", name: "featured_excerpt", widget: "markdown" }
+          - { label: "Contact Intro", name: "contact_intro", widget: "text" }

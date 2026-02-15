@@ -1,0 +1,23 @@
+title: "Madison Wood — Writer"
+description: "Stories, reflections, and written pieces exploring the meaningful moments that shape who we are."
+url: ""
+baseurl: ""
+
+permalink: /writing/:slug/
+
+collections:
+  photos:
+    output: false
+
+defaults:
+  - scope:
+      path: "_posts"
+    values:
+      layout: "post"
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - README.md
+  - netlify.toml
