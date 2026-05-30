@@ -6,21 +6,11 @@
 - **Hosting:** Netlify (free tier)
 - **Forms:** Netlify Forms (contact form, `form-name=contact`)
 - **Auth:** Netlify Identity (invite-only, email login)
-
-## Netlify Details
-- **Site ID:** `REDACTED-ID`
-- **Site name:** `madison-wood`
-- **Live URL:** https://madison-wood.netlify.app
-- **Admin URL:** https://app.netlify.com/projects/madison-wood
-- **Identity instance:** `REDACTED-ID`
-- **Git Gateway:** enabled (service slug: `git`)
-- **Build hook:** https://api.netlify.com/build_hooks/REDACTED-BUILD-HOOK
-- **Contact form ID:** `REDACTED-ID`
 - **GitHub repo:** `QAv2/mw-website` (public, branch: `master`)
-- **Deploy key ID:** `REDACTED-ID`
 
-## Invited Users
-- Madison: `REDACTED-EMAIL`
+> **Operational details** (Netlify site/build-hook/form IDs, invited users, API
+> commands) live in the untracked, gitignored **`OPERATIONS.local.md`** — they are
+> deliberately kept out of this public repo. See that file for deploy/rebuild commands.
 
 ## Directory Structure
 ```
@@ -42,22 +32,3 @@ admin/          index.html (Decap entry), config.yml (CMS collections)
 - **Fonts:** Cormorant Garamond (serif headings), Libre Franklin (sans body)
 - **Colors:** `--ink: #1a1612`, `--cream: #fdfbf8`, `--accent: #8b5e3c`, `--parchment: #f7f3ee`
 - **Max widths:** `--max-reading: 680px`, `--max-content: 1100px`, `--max-wide: 1320px`
-
-## Useful Commands
-```bash
-# Trigger a rebuild
-curl -X POST https://api.netlify.com/build_hooks/REDACTED-BUILD-HOOK
-
-# Check deploy status
-NETLIFY_TOKEN=$(node -e "const c=JSON.parse(require('fs').readFileSync(require('os').homedir()+'/.config/netlify/config.json','utf8')); console.log(Object.values(c.users)[0]?.auth?.token)")
-curl -s "https://api.netlify.com/api/v1/sites/REDACTED-ID/deploys?per_page=1" -H "Authorization: Bearer $NETLIFY_TOKEN" | node -p "JSON.parse(require('fs').readFileSync('/dev/stdin','utf8'))[0].state"
-
-# Check form submissions
-curl -s "https://api.netlify.com/api/v1/forms/REDACTED-ID/submissions" -H "Authorization: Bearer $NETLIFY_TOKEN"
-```
-
-## Notes
-- Netlify auth token is stored at `~/.config/netlify/config.json`
-- The Netlify API doesn't directly expose invite-only registration toggle — use the `updateServiceInstance` endpoint with `{"config": {"disable_signup": true}}`
-- Forms require `ignore_html_forms: false` in site processing settings — set via `updateSite` API
-- Build hook deploys work; API-triggered `POST /deploys` may get stuck in "new" state

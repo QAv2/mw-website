@@ -6,3 +6,15 @@
   JEKYLL_ENV = "production"
   RUBY_VERSION = "3.2"
 
+# Security headers (added 2026-05-30). No content/script CSP is set on purpose:
+# Decap CMS (/admin/) and the Netlify Identity widget load cross-origin scripts,
+# so a strict script-src would break the CMS. These headers are non-breaking.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+    Cross-Origin-Opener-Policy = "same-origin"

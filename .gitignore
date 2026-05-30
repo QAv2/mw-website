@@ -6,3 +6,6 @@ vendor/
 
 # Local Netlify folder
 .netlify
+
+# Operational details (site IDs, build hook, invited users) — keep out of public repo
+OPERATIONS.local.md
